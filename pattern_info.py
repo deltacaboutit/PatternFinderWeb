@@ -11,6 +11,17 @@ Each pattern has:
   stop     - where the stop-loss is placed and why
 """
 
+import os
+import sys
+
+
+def picture_path(pattern_name: str) -> str:
+    """Where the example picture for a pattern is stored (also works inside the .exe)."""
+    base = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
+    file = pattern_name.lower().replace(" ", "_").replace("-", "_") + ".png"
+    return os.path.join(base, "images", "patterns", file)
+
+
 PATTERN_INFO = {
     # ---------------- Reversal patterns ----------------
     "Head and Shoulders": dict(

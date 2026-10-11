@@ -9,6 +9,7 @@ saved to an iPhone home screen and used like an app.
 Run it on a computer with:   streamlit run streamlit_app.py
 """
 
+import os
 import time
 
 import numpy as np
@@ -19,7 +20,7 @@ from plotly.subplots import make_subplots
 
 from data import DataError, fetch_prices, load_csv
 from indicators import add_indicators
-from pattern_info import DISCLAIMER, GLOSSARY, PATTERN_INFO, STATUS_HELP
+from pattern_info import DISCLAIMER, GLOSSARY, PATTERN_INFO, STATUS_HELP, picture_path
 from patterns import ACTIVE_STATUSES, find_patterns, is_recent
 from report import bias_word, key_date, money, pattern_text, summary_text
 
@@ -456,6 +457,9 @@ with tab_guide:
         for name, info in PATTERN_INFO.items():
             if info["category"] == cat:
                 with st.expander(f"{name} ({info['bias']})"):
+                    pic = picture_path(name)
+                    if os.path.exists(pic):
+                        st.image(pic, width="stretch")
                     st.markdown(f"**Looks like:** {info['looks']}\n\n**May mean:** {info['means']}\n\n"
                                 f"**Target:** {info['target']}\n\n**Stop-loss:** {info['stop']}")
     st.caption(DISCLAIMER)

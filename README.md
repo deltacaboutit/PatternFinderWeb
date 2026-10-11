@@ -27,7 +27,7 @@ You can do all of this on your Windows PC.
    * Leave it set to **Public**. The code has no passwords or personal data in it.
 4. Click **Create repository**.
 5. On the next page, click the link **uploading an existing file**.
-6. Open the unzipped folder on your PC. Select **everything inside it**: press Ctrl+A, then drag it all onto the GitHub page.
+6. Open the unzipped folder on your PC. Select **everything inside it**, including the `images` and `tests` folders: press Ctrl+A, then drag it all onto the GitHub page.
    * Upload the files inside the folder, not the folder itself.
    * `streamlit_app.py` must end up at the top level.
 7. Wait for the files to finish uploading, then click the green **Commit changes** button at the bottom.
@@ -68,7 +68,7 @@ The app is now on your home screen.
   * Below the chart, the app explains the pattern in plain English.
   * Drag the chart sideways to move around. The **Zoom** buttons (3M, 6M, 1Y, All) change how much history you see.
 * **Scan tab**: checks a list of tickers and shows which ones have active patterns.
-* **Guide tab**: explains every pattern and every word the app uses.
+* **Guide tab**: explains every pattern, with an example picture of each one, and every word the app uses.
 * **Settings** (the gear at the top): change the period, bar size, sensitivity and which indicator panels to show.
 
 ---
@@ -106,6 +106,8 @@ If Windows asks whether to allow access, choose **Private networks** and click *
 | `patterns.py` | The pattern-finding math. This is the same file as in the Windows app. |
 | `indicators.py`, `data.py`, `report.py`, `pattern_info.py` | Indicators, data download and the plain-English text. These are shared with the Windows app. |
 | `requirements.txt` | The list of libraries Streamlit installs. |
+| `images/patterns/` | The example pictures shown in the Guide tab. |
+| `make_pattern_pictures.py` | Redraws those pictures (only needed if the pattern rules change). |
 | `example_prices.csv` | Made-up practice data. |
 | `Run_On_My_PC.bat` | Optional: runs the app on your PC. |
 | `tests/test_patterns.py` | A self-test for the 19 patterns. |

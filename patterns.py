@@ -689,7 +689,16 @@ def detect_rounding(b: Bars, piv: List[Pivot], name: str, family: str) -> List[P
     ends_all = sorted(set([p.i for p in piv] + [n - 1]))
     for Lp in [p for p in piv if p.t == "H"]:
         lip = Lp.p
-        for end in ends_all:
+        # The bowl can also end on the first bar where price climbs back up to
+        # the lip (that bar is usually not a swing point, because price keeps
+        # going up through it).
+        ends = list(ends_all)
+        j0 = Lp.i + 40
+        if j0 < n:
+            back = np.nonzero(b.h[j0:] >= lip - 0.5 * b.atr[j0:])[0]
+            if back.size:
+                ends.append(int(j0 + back[0]))
+        for end in sorted(set(ends)):
             w = end - Lp.i
             if w < 40:
                 continue

@@ -116,6 +116,11 @@ def load_csv(path: str) -> pd.DataFrame:
     if "Volume" not in raw.columns:
         raw["Volume"] = 0
 
-    raw["Date"] = pd.to_datetime(raw["Date"], errors="coerce", utc=False)
+    dates = raw["Date"].astype(str)
+    if dates.str.contains(r"[+-]\d\d:\d\d$").any():
+        # Dates with a time-zone offset (as saved by yfinance): keep the local calendar day
+        raw["Date"] = pd.to_datetime(dates.str.slice(0, 19), errors="coerce")
+    else:
+        raw["Date"] = pd.to_datetime(dates, errors="coerce")
     raw = raw.dropna(subset=["Date"]).set_index("Date")
     return _clean(raw)
